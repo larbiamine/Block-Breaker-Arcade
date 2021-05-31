@@ -6,7 +6,7 @@ var x = canvas.width/2;
 var y = canvas.height-80;
 var raquetteHeight = 10;
 var raquetteWidth = 75;
-
+var score = 0;
 var blockX = 20;
 var blockY = 20;
 var blockHeight = 15;
@@ -23,6 +23,9 @@ var blocks = new Array(3);
 
 var colonnes = 8;
 var lignes = 4;
+
+ctx.font = "15px Arial";
+
 
 function initBlocks() {
     for (var i = 0; i < colonnes; i++) {
@@ -68,6 +71,13 @@ function drawraquette() {
     ctx.fill();
     ctx.closePath();
 }
+function drawscore() {
+    ctx.beginPath();
+    ctx.fillText("Score :"+score, 10, 17);
+    ctx.fillStyle = "#6095DD";
+    ctx.fill();
+    ctx.closePath();
+}
 
 function drawblocks() {
     
@@ -76,7 +86,6 @@ function drawblocks() {
     for (var i in blocks) {
         for (var j in blocks[i]) {
             if (blocks[i][j] == 1) {
-
                 let bx = blockX + i*blockWidth + i*blockX;
                 let by = blockY + j*blockHeight +j*blockY;
                 ctx.rect( bx, by, blockWidth, blockHeight);
@@ -89,6 +98,18 @@ function drawblocks() {
     ctx.closePath();
 }
 
+function CheckWin() {
+    var win = true;
+    for (var i in blocks) {
+        for (var j in blocks[i]) {
+            if (blocks[i][j] == 1) {
+                win = false;
+            }
+        }
+    }
+    return win;
+
+}
 function Collision() {
     for (var i in blocks) {
         for (var j in blocks[i]) {
@@ -96,10 +117,11 @@ function Collision() {
 
                 let bx = blockX + i*blockWidth + i*blockX;
                 let by = blockY + j*blockHeight +j*blockY;
-
+                  
                 if (x >= bx && x <= bx + blockWidth && y >= by && y <= by + blockHeight ) {
-                    blocks[i][j] == 0;
+                    blocks[i][j] = 0;
                     velocityY = -velocityY;
+                    score = score + 1;
 
                 }
 
@@ -109,13 +131,21 @@ function Collision() {
 
 }
 
+
+
 function draw() {
+     
     ctx.clearRect(0, 0, canvas.width, canvas.height);
      
     drawBall(); drawraquette();
     Collision(); drawblocks();
+    drawscore();
+    if (CheckWin()) {
+        if(alert('Winner, Your score:'+score)){}
+        else    window.location.reload(); 
+    }
     
-    
+
     if(x  > canvas.width - ball || x  < ball) {
         velocityX = -velocityX;
     }
