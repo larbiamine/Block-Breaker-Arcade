@@ -1,15 +1,15 @@
 var canvas = document.getElementById("Balle et raquette");
 var ctx = canvas.getContext("2d");
 
-var rad = 10;
-var x = canvas.width/2;
-var y = canvas.height-30;
-var dx = 2;
-var dy = -2;
-var paddleHeight = 10;
-var paddleWidth = 75;
-var paddleX = (canvas.width-paddleWidth)/2;
 
+var x = canvas.width/2;
+var y = canvas.height-80;
+var raquetteHeight = 10;
+var raquetteWidth = 75;
+var velocityX = 2;
+var velocityY = -2;
+var raquetteX = (canvas.width-raquetteWidth)/2;
+var ball = 10;
 var rightPressed = false;
 var leftPressed = false;
 
@@ -36,15 +36,15 @@ function KeyUp(e) {
 
 function drawBall() {
     ctx.beginPath();
-    ctx.arc(x, y, rad, 0, Math.PI*2);
-    ctx.fillStyle = "#0195DD";
+    ctx.arc(x, y, ball, 0, Math.PI*2);
+    ctx.fillStyle = "#6095DD";
     ctx.fill();
     ctx.closePath();
 }
-function drawPaddle() {
+function drawraquette() {
     ctx.beginPath();
-    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-    ctx.fillStyle = "#0095DD";
+    ctx.rect(raquetteX, canvas.height-raquetteHeight, raquetteWidth, raquetteHeight);
+    ctx.fillStyle = "#6095DD";
     ctx.fill();
     ctx.closePath();
 }
@@ -52,30 +52,58 @@ function drawPaddle() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
-    drawPaddle();
+    drawraquette();
     
-    if(x + dx > canvas.width-rad || x + dx < rad) {
-        dx = -dx;
+    if(x + velocityX > canvas.width-ball || x + velocityX < ball) {
+        velocityX = -velocityX;
     }
-    if(y + dy > canvas.height-rad || y + dy < rad) {
-        dy = -dy;
+
+    // if(y + velocityY > canvas.height-ball  || y + velocityY < ball ) {
+    //     velocityY = -velocityY;
+    //     }else { 
+    //             if (y + velocityY > canvas.height-ball) {
+    //                 if( x  > raquetteX && x < raquetteX + raquetteWidth  ) {
+    //                     velocityY = -velocityY;
+    //                 }else{
+    //                       alert("GAME OVER");
+    //     }
+        
+    // }
+
+    // }
+    if((y + velocityY > canvas.height-ball  - raquetteHeight  ) && (x  > raquetteX && x < raquetteX + raquetteWidth)   ) {
+        velocityY = -velocityY;
+    }  
+
+    if(y + velocityY > canvas.height-ball     ) {
+        alert("gameover");
+    }
+
+    if( y + velocityY < ball  ) {
+        velocityY = -velocityY;   
     }
     
+
+
+    // if(y + velocityY > canvas.height-ball - raquetteHeight || y + velocityY < ball ) {
+    //     velocityY = -velocityY;
+    // }
+
     if(rightPressed) {
-        paddleX += 7;
-        if (paddleX + paddleWidth > canvas.width){
-            paddleX = canvas.width - paddleWidth;
+        raquetteX += 7;
+        if (raquetteX + raquetteWidth > canvas.width){
+            raquetteX = canvas.width - raquetteWidth;
         }
     }
     else if(leftPressed) {
-        paddleX -= 7;
-        if (paddleX < 0){
-            paddleX = 0;
+        raquetteX -= 7;
+        if (raquetteX < 0){
+            raquetteX = 0;
         }
     }
     
-    x += dx;
-    y += dy;
+    x += velocityX;
+    y += velocityY;
 }
 
 setInterval(draw, 10);
