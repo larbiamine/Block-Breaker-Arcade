@@ -118,7 +118,7 @@ function Collision() {
                 let bx = blockX + i*blockWidth + i*blockX;
                 let by = blockY + j*blockHeight +j*blockY;
                   
-                if (x >= bx && x <= bx + blockWidth && y >= by && y <= by + blockHeight ) {
+                if (x >= bx && x <= bx + blockWidth  && y >= by && y <= by + blockHeight ) {
                     blocks[i][j] = 0;
                     velocityY = -velocityY;
                     score = score + 1;
