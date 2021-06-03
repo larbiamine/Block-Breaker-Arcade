@@ -113,7 +113,7 @@ function CheckWin() {
     }
     return win;
 
-}
+} 
 function Collision() {
     for (var i in blocks) {
         for (var j in blocks[i]) {
