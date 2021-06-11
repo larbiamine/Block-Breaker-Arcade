@@ -6,18 +6,18 @@ pomme.src = 'apple.png';
 
 var x = canvas.width/2;
 var y = canvas.height-80;
-var raquetteHeight = 26;
-var raquetteWidth = 195;
+var raquetteHeight = 10;
+var raquetteWidth = 75;
 var score = 0;
-var blockX = 85;
-var blockY = 70;
-var blockHeight = 63;
-var blockWidth = 60;
+var blockX = 20;
+var blockY = 20;
+var blockHeight = 15;
+var blockWidth = 38;
 
-var velocityX = 5.2;
-var velocityY = -5.2;
+var velocityX = 2;
+var velocityY = -2;
 var raquetteX = (canvas.width - raquetteWidth)/2;
-var ball = 20.8;
+var ball = 8;
 var rightPressed = false;
 var leftPressed = false;
 
@@ -26,7 +26,7 @@ var blocks = new Array(3);
 var colonnes = 8;
 var lignes = 4;
 
-ctx.font = "32px Consolas";
+ctx.font = "12px Consolas";
 
 
 function initBlocks() {
@@ -75,7 +75,7 @@ function drawraquette() {
 }
 function drawscore() {
     ctx.beginPath();
-    ctx.fillText("Score :"+score, 26, 44);
+    ctx.fillText("Score :"+score, 10, 17);
     ctx.fillStyle = "#8fbcbb";
     ctx.fill();
     ctx.closePath();
@@ -90,8 +90,8 @@ function drawblocks() {
             if (blocks[i][j] == 1) {
                 let bx = blockX + i*blockWidth + i*blockX;
                 let by = blockY + j*blockHeight +j*blockY;
-                //ctx.rect( bx, by, blockWidth, blockHeight);
-                ctx.drawImage(pomme, bx, by,64,64);
+                //' ctx.rect( bx, by, blockWidth, blockHeight);
+                ctx.drawImage(pomme, bx, by,25,25);
             }
         }
     }
@@ -113,7 +113,7 @@ function CheckWin() {
     }
     return win;
 
-} 
+}
 function Collision() {
     for (var i in blocks) {
         for (var j in blocks[i]) {
@@ -122,7 +122,7 @@ function Collision() {
                 let bx = blockX + i*blockWidth + i*blockX;
                 let by = blockY + j*blockHeight +j*blockY;
                   
-                if (x >= bx && x <= bx + blockWidth + ball  && y >= by && y <= by + blockHeight + ball) {
+                if (x >= bx && x <= bx + blockWidth  && y >= by && y <= by + blockHeight ) {
                     blocks[i][j] = 0;
                     velocityY = -velocityY;
                     score = score + 1;
@@ -168,13 +168,13 @@ function draw() {
     }
     
     if(rightPressed) {
-        raquetteX += 18.2;
+        raquetteX += 7;
         if (raquetteX + raquetteWidth > canvas.width){
             raquetteX = canvas.width - raquetteWidth;
         }
     }
     else if(leftPressed) {
-        raquetteX -= 18.2;
+        raquetteX -= 7;
         if (raquetteX < 0){
             raquetteX = 0;
         }
