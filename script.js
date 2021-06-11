@@ -21,10 +21,10 @@ var ball = 20.8;
 var rightPressed = false;
 var leftPressed = false;
 
-var blocks = new Array(3);
 
 var colonnes = 8;
 var lignes = 4;
+var blocks = new Array(3);
 
 ctx.font = "32px Consolas";
 
@@ -68,7 +68,7 @@ function drawBall() {
 }
 function drawraquette() {
     ctx.beginPath();
-    ctx.rect(raquetteX, canvas.height-raquetteHeight, raquetteWidth, raquetteHeight);
+    ctx.rect(raquetteX, canvas.height - raquetteHeight, raquetteWidth, raquetteHeight);
     ctx.fillStyle = "#8fbcbb";
     ctx.fill();
     ctx.closePath();
@@ -154,7 +154,7 @@ function draw() {
         velocityX = -velocityX;
     }
 
-    if((y  > canvas.height - ball - raquetteHeight  ) && (x  > raquetteX+2 && x < raquetteX + raquetteWidth-2)  ) {
+    if((y  > canvas.height - ball - raquetteHeight  ) && (x  > raquetteX && x < raquetteX + raquetteWidth)  ) {
         velocityY = -velocityY;
     }  
 
