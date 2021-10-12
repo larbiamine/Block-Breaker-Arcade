@@ -1,4 +1,4 @@
-#block-breaker-arcade-game
+# Block Breaker Arcade
 Simple Arkanoid type game with javascript and HTML5 Canvas
 
 Game logic:
